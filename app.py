@@ -13,6 +13,16 @@ st.markdown(
     Usá el menú de la izquierda para navegar entre las secciones.
     """
 )
+st.sidebar.markdown("### Secciones")
+st.sidebar.markdown(
+    """
+    - **Clubes** — alta, modificación y baja de clubes
+    - **Jugadores** — el plantel de toda la liga
+    - **Estadios** — las canchas de cada club
+    - **Estadísticas** — promedios de los años de fundación
+    """
+)
+
 st.divider()
 
 col1, col2, col3 = st.columns(3)
