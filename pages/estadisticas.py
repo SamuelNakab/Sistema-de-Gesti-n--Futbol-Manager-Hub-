@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from database import get_connection
 
-st.header("📊 Estadísticas de la Liga")
+st.header("Estadísticas de la Liga")
 st.markdown(
     "Acá ves un resumen de los años en que se fundaron los clubes de la liga. "
     "Sirve para darte una idea de qué tan vieja es la liga y si los clubes se fundaron "
@@ -24,10 +24,29 @@ else:
     moda_texto = ", ".join(str(int(anio)) for anio in anios_moda)
 
     st.subheader("Los números")
+
     st.write(f"Media: {media:.2f}")
+    st.caption("Es el promedio de los años de fundación de todos los clubes.")
+
     st.write(f"Mediana: {mediana:.2f}")
+    st.caption(
+        "Es el año que queda justo en el medio si ordenás todos los clubes "
+        "de más antiguo a más nuevo."
+    )
+
     veces = "vez" if frecuencia_max == 1 else "veces"
     st.write(f"Moda: {moda_texto} (se repite {frecuencia_max} {veces})")
+    st.caption("Es el año de fundación más común entre los clubes.")
+
+    if len(anios_moda) > 1:
+        st.caption(
+            "Hay un empate: varios años se repiten la misma cantidad de veces, "
+            "así que abajo te mostramos los clubes de cada uno por separado."
+        )
+
+    for anio in anios_moda:
+        nombres = df[df['anio_fundacion'] == anio]['nombre'].tolist()
+        st.write(f"Los clubes fundados en {int(anio)} son: {', '.join(nombres)}.")
 
     st.subheader("Qué significa esto")
 
